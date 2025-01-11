@@ -1,0 +1,28 @@
+# Dependency directories
+node_modules/
+vendor/
+
+# Logs
+logs/
+*.log
+
+# Dependency files
+*.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Build directories
+dist/
+build/
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
