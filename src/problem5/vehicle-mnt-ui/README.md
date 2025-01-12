@@ -19,8 +19,8 @@ Vehicle Management UI is a React-based application designed to manage vehicle da
 1. **Clone the repository**
 
   ```bash
-  git clone https://github.com/yourusername/vehicle-mnt-ui.git
-  cd vehicle-mnt-ui
+  git clone https://github.com/KioNguyen/99techteam-code-challenge.git
+  cd src/problem5/vehicle-mnt-ui
   ```
 
 2. **Install dependencies**
