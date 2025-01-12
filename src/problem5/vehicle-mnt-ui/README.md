@@ -1,50 +1,70 @@
-# React + TypeScript + Vite
+```md
+# Vehicle Management UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+Vehicle Management UI is a React-based application designed to manage vehicle data efficiently. It offers functionalities to create, view, update, and delete vehicle entries with a user-friendly interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **CRUD Operations**: Create, Read, Update, and Delete vehicles.
+- **Responsive Design**: Built with Ant Design for a polished and responsive user interface.
+- **Real-Time Data Fetching**: Utilizes React Query for efficient data management and caching.
+- **State Management**: Managed using Zustand for scalable and easy state handling.
+- **Async Select**: Implements asynchronous dropdowns for searching and selecting tokens.
+- **TypeScript**: Ensures type safety and enhances development experience.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Installation
 
-- Configure the top-level `parserOptions` property like this:
+1. **Clone the repository**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+  ```bash
+  git clone https://github.com/yourusername/vehicle-mnt-ui.git
+  cd vehicle-mnt-ui
+  ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. **Install dependencies**
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+  ```bash
+  yarn
+  ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+3. **Set up environment variables**
+
+  Create a `.env` file in the root directory and add:
+
+  ```
+  VITE_PORT=5173
+  VITE_SERVICE_HOST=http://localhost:3000
+  ```
+
+4. **Run the application**
+
+  ```bash
+  yarn dev
+  ```
+
+## Usage
+
+- **Create Vehicle**: Click on the "Create Vehicle" button to add a new vehicle.
+- **Search**: Use the search bar to filter vehicles based on make, model, or year.
+- **Edit Vehicle**: Click the edit icon next to a vehicle to update its details.
+- **Delete Vehicle**: Click the delete icon and confirm to remove a vehicle.
+
+## Technologies Used
+
+- **React** with TypeScript
+- **Vite** for fast development and build
+- **Ant Design** for UI components
+- **Axios** for API requests
+- **React Query** for data fetching and caching
+- **Zustand** for state management
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## License
+
+This project is licensed under the MIT License.
 ```
