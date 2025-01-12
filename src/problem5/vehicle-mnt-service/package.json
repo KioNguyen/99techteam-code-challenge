@@ -6,20 +6,19 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "npx ts-node-dev src/index.ts",
+    "dev": "npx ts-node-dev -r dotenv/config src/index.ts",
     "build": "tsc",
-    "migration:create": "npx ts-node ./node_modules/typeorm/cli.js migration:create src/migrations/vehicle",
-    "migration:generate": "npx ts-node ./node_modules/typeorm/cli.js migration:generate src/migrations/vehicle -d ./src/data-source.ts",
-    "migration:run": "npx ts-node ./node_modules/typeorm/cli.js migration:run -d ./src/data-source.ts"
+    "migration:create": "npx ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:create src/migrations/vehicle",
+    "migration:generate": "npx ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:generate src/migrations/vehicle -d ./src/data-source.ts",
+    "migration:run": "npx ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:run -d ./src/data-source.ts"
   },
   "dependencies": {
-    "@prisma/client": "^6.2.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "pg": "^8.13.1",
     "postgresql": "^0.0.1",
-    "prisma-class-generator": "^0.2.11",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20"
   },
@@ -27,7 +26,6 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.5",
     "dotenv-cli": "^8.0.0",
-    "prisma": "^6.2.1",
     "typescript": "^5.7.3"
   }
 }

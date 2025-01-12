@@ -1,11 +1,10 @@
 import "reflect-metadata";
 
-// import express from "express";
+import * as cors from "cors";
 import * as express from "express";
 
-import { PrismaClient } from "@prisma/client";
-import { Vehicle } from "./entities/vehicles.entity";
 import { myDataSource } from "./data-source";
+import { Vehicle } from "./entities/vehicles.entity";
 
 myDataSource
   .initialize()
@@ -17,13 +16,19 @@ myDataSource
   });
 
 const app = express();
-const prisma = new PrismaClient();
 const vehicleRepository = myDataSource.getRepository(Vehicle);
 
+app.use(cors());
 app.use(express.json());
 
+// Middleware to introduce delay
+const delayMiddleware = (req, res, next) => {
+  const delay = 2000; // Delay in milliseconds (e.g., 2000ms = 2 seconds)
+  setTimeout(() => next(), delay);
+};
+
 // Create a vehicle
-app.post("/vehicles", async function (req, res) {
+app.post("/vehicles", delayMiddleware, async function (req, res) {
   const { type, make, model, year } = req.body;
   try {
     const vehicle = vehicleRepository.create({ type, make, model, year });
@@ -38,12 +43,20 @@ app.post("/vehicles", async function (req, res) {
 });
 
 // List vehicles with basic filterspx ts-node src/index.ts
-app.get("/vehicles", async (req, res) => {
-  const { make } = req.query;
+app.get("/vehicles", delayMiddleware, async (req, res) => {
+  const { searchKey } = req.query;
   try {
     const query = vehicleRepository.createQueryBuilder("vehicle");
-    if (make) {
-      query.where("vehicle.make = :make", { make });
+    if (searchKey) {
+      query.where(
+        `CONCAT(
+          vehicle.type, 
+          vehicle.make, 
+          vehicle.model,
+          vehicle.year
+        ) LIKE :searchKey`,
+        { searchKey: `%${searchKey}%` }
+      );
     }
     const vehicles = await query.getMany();
     res.json(vehicles);
@@ -53,7 +66,7 @@ app.get("/vehicles", async (req, res) => {
 });
 
 // Get details of a vehicle
-app.get("/vehicles/:id", async (req, res) => {
+app.get("/vehicles/:id", delayMiddleware, async (req, res) => {
   const { id } = req.params;
   try {
     const vehicle = await vehicleRepository.findOneBy({ id });
@@ -68,16 +81,18 @@ app.get("/vehicles/:id", async (req, res) => {
 });
 
 // Update vehicle details
-app.put("/vehicles/:id", async (req, res) => {
+app.put("/vehicles/:id", delayMiddleware, async (req, res) => {
   const { id } = req.params;
-  const { make, model, year } = req.body;
+  const { make, model, year, type } = req.body;
   try {
     const updatedVehicle = await vehicleRepository.save({
       id,
       make,
       model,
       year,
+      type,
     });
+    console.log("🚀 ~ app.put ~ updatedVehicle:", updatedVehicle);
     res.json(updatedVehicle);
   } catch (error) {
     res.status(500).json({ error: "Failed to update vehicle." });
@@ -85,7 +100,7 @@ app.put("/vehicles/:id", async (req, res) => {
 });
 
 // Delete a vehicle
-app.delete("/vehicles/:id", async (req, res) => {
+app.delete("/vehicles/:id", delayMiddleware, async (req, res) => {
   const { id } = req.params;
   try {
     const vehicle = await vehicleRepository.findOneBy({ id });
