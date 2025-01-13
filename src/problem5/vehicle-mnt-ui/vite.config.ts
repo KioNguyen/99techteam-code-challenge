@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
     server: {
       port: parseInt(process.env.VITE_PORT || "5173"),
       cors: {
-        origin: env.VITE_SERVICE_HOST, // or the specific origin of your Laravel app
+        origin: env.VITE_SERVICE_HOST_ORIGIN,
         credentials: true,
       },
     },
