@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       port: parseInt(process.env.VITE_PORT || "5173"),
+      cors: false,
     },
   };
 });
